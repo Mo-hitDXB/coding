@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Emissions Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            margin: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .chart {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CO₂ Emissions Report</h1>
+        </div>
+        <p><strong>Energy CO₂ Emissions:</strong> {{ data.energy_co2 }} kg</p>
+        <p><strong>Waste CO₂ Emissions:</strong> {{ data.waste_co2 }} kg</p>
+        <p><strong>Business Travel CO₂ Emissions:</strong> {{ data.travel_co2 }} kg</p>
+        <p><strong>Total CO₂ Emissions:</strong> {{ data.total_co2 }} kg</p>
+        <div class="chart">
+            <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart">
+        </div>
+    </div>
+</body>
+</html>

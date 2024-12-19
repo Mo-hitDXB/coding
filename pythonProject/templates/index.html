@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Emissions Calculator</title>
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url('https://images.unsplash.com/photo-1451847251646-8a6c0dd1510c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+        background-size: cover;
+    }
+    .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 100%;
+    }
+    h1 {
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    input[type="text"],
+    input[type="number"],
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px; /* Add space between elements */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #555;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>CO₂ Emissions Calculator</h1>
+        <form method="POST">
+            <label for="electricity">Electricity (kWh/month):</label>
+            <input type="Number" name="Electricity" step="0.01" required>
+            <label for="gas">Gas (m³/month):</label>
+            <input type="Number" name="Gas" step="0.01" required>
+            <label for="fuel">Fuel (liters/month):</label>
+            <input type="Number" name="Fuel" step="0.01" required>
+            <label for="waste">Waste (kg/month):</label>
+            <input type="Number" name="Waste" step="0.01" required>
+            <label for="recycling">Recycling (%):</label>
+            <input type="Number" name="Recycling" step="0.01" required>
+            <label for="travel_km">Travel Distance (km/month):</label>
+            <input type="Number" name="Travel_km" step="0.01" required>
+            <label for="fuel_Efficiency">Fuel Efficiency (km/liter):</label>
+            <input type="Number" name="Fuel_Efficiency" step="0.01" required>
+            <button type="Submit">Calculate</button>
+        </form>
+
+        {% if total_co2 %}
+            <div class="results">
+                <h2>Results:</h2>
+                <p><strong>Energy CO₂:</strong> {{ energy_co2 }} kgCO₂</p>
+                <p><strong>Waste CO₂:</strong> {{ waste_co2 }} kgCO₂</p>
+                <p><strong>Travel CO₂:</strong> {{ travel_co2 }} kgCO₂</p>
+                <p><strong>Total CO₂ Emissions:</strong> {{ total_co2 }} kgCO₂</p>
+                <img src="{{ chart_path }}" alt="CO₂ Emissions Distribution">
+            </div>
+            <div class="download-button">
+                <form method="POST" action="/download_pdf">
+                    <input type="hidden" name="energy_co2" value="{{ energy_co2 }}">
+                    <input type="hidden" name="waste_co2" value="{{ waste_co2 }}">
+                    <input type="hidden" name="travel_co2" value="{{ travel_co2 }}">
+                    <input type="hidden" name="total_co2" value="{{ total_co2 }}">
+                    <button type="submit">Download Energy_Bill_Usage</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
